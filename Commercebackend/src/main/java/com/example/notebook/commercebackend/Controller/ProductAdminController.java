@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin/products")
@@ -44,8 +44,8 @@ public class ProductAdminController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("id")Long id){
-        Product product = productService.findProductByIdService(id);
-        if(product == null){
+        Optional<Product> product = productService.findProductByIdService(id);
+        if(product.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         productService.deleteProductByIdService(id);

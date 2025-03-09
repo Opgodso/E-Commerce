@@ -38,7 +38,7 @@ public class ProductController {
 
     @GetMapping("/products/{id}")
     public ResponseEntity<Product> getProductCategoryById(@PathVariable("id") Long id) {
-        Optional<Product> product = productRepository.findById(id);
+        Optional<Product> product = productService.findProductByIdService(id);
         return product.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -49,4 +49,14 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping("/search/findByFuzzyName")
+    public ResponseEntity<Page<Product>> findByFuzzyName(@RequestParam String Name,@RequestParam(required = false, defaultValue = "false") boolean exactMatch,Pageable pageable) {
+        Page<Product> products;
+        if(exactMatch){
+            products = productService.findByNameService(Name,pageable);
+        } else {
+            products = productService.findByFuzzyNameService(Name,pageable);
+        }
+        return ResponseEntity.ok(products);
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -29,13 +30,20 @@ public class ProductService {
         productRepository.delete(product);
     }
 
-    public Product findProductByIdService(Long id){
-        return productRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Product not found"));
+    public Optional<Product> findProductByIdService(Long id){
+        return productRepository.findById(id);
     }
 
     public Page<Product> findByCategoryIdService (Long categoryId, Pageable pageable) {
         return productRepository.findByCategoryId(categoryId, pageable);
     }
 
+
+    public Page<Product> findByNameService (String productName, Pageable pageable) {
+        return productRepository.findByName(productName, pageable);
+    }
+
+    public Page<Product> findByFuzzyNameService (String productName, Pageable pageable) {
+        return productRepository.findByFuzzyName(productName, pageable);
+    }
 }
