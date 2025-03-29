@@ -46,4 +46,8 @@ public class ProductService {
     public Page<Product> findByFuzzyNameService (String productName, Pageable pageable) {
         return productRepository.findByFuzzyName(productName, pageable);
     }
+
+//    public Page<Product> findAllProductService (Pageable pageable) {
+//        return productRepository.findAll(pageable);
+//    }
 }
