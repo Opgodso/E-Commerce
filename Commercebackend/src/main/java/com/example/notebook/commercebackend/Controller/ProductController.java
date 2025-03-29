@@ -36,6 +36,11 @@ public class ProductController {
         return ResponseEntity.ok(productRepository.findAll());
     }
 
+//    @GetMapping("/products/all")
+//    public ResponseEntity<Page<Product>> getProductPage(Pageable pageable){
+//        return ResponseEntity.ok(productService.findAllProductService(pageable));
+//    }
+
     @GetMapping("/products/{id}")
     public ResponseEntity<Product> getProductCategoryById(@PathVariable("id") Long id) {
         Optional<Product> product = productService.findProductByIdService(id);
@@ -59,4 +64,5 @@ public class ProductController {
         }
         return ResponseEntity.ok(products);
     }
+
 }
